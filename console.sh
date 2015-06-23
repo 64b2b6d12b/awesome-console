@@ -14,7 +14,7 @@ yum -y install ncurses-devel
 
 ## You will need to check https://github.com/libevent/libevent/releases/latest for the latest URL and change the script appropriately
 
-curl -L https://github.com/libevent/libevent/releases/download/release-2.0.22-stable/libevent-2.0.22-stable.tar.gz
+curl -O https://github.com/libevent/libevent/releases/download/release-2.0.22-stable/libevent-2.0.22-stable.tar.gz
 
 tar -xvzf libevent-*.tar.gz
 cd libevent*
