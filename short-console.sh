@@ -45,4 +45,4 @@ gem install tmuxinator
 install_yum_dependencies
 install_libevent
 install_tmux
-install_rvm-gems-tmuxinator
+install_ruby_tmuxinator
