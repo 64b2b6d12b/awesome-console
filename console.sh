@@ -1,57 +1,48 @@
 #!/bin/bash
 
-#This bash script will do the following on a CentOS 6.x box - other distros/versions have not been tested:
-# - Compile tmux from source (including installing ncurses and compiling libevent from source)
-# - Install RVM (Ruby Version Manager)
-# - Install Ruby Gems
-# - Install tmuxinator
+LIBEVENT_URL=$(curl -s https://api.github.com/repos/libevent/libevent/releases/latest | grep -Eo 'https.*stable.tar.gz' | head -n 1)
+TMUX_URL=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | grep -Eo 'https.*.tar.gz' | head -n 1)
+LIBEVENT_TAR=$(echo $LIBEVENT_URL | awk -F/ '{print $NF}')
+TMUX_TAR=$(echo $TMUX_URL | awk -F/ '{print $NF}')
+LIBEVENT_DIR=$(echo ${LIBEVENT_TAR%.tar.gz})
+TMUX_DIR=$(echo ${TMUX_TAR%.tar.gz})
 
-## Run this script as root so that passwords are not needed
-
-## Lets intstall libevent
-
+function install_yum_dependencies() {
 yum install -y ncurses-devel
 yum groupinstall -y 'development tools'
+}
 
-## You will need to check https://github.com/libevent/libevent/releases/latest for the latest URL and change the script appropriately
+function install_libevent() {
+curl -OL "$LIBEVENT_URL"
+tar -xzf "$LIBEVENT_TAR"
+cd "$LIBEVENT_DIR"
+./configure
+make
+make install
+}
 
-curl -OL https://github.com/libevent/libevent/releases/download/release-2.0.22-stable/libevent-2.0.22-stable.tar.gz
-
-tar -xvzf libevent-*.tar.gz
-cd libevent*
-./configure --prefix=/usr/local
-make && make install
-
-## Lets sleep for 5 seconds to let things settle
-sleep 5
-
-## Time to compile tmux - You will need to check https://github.com/tmux/tmux/releases for the latest URL and change the script appropriately
-
-curl -OL https://github.com/tmux/tmux/releases/download/2.0/tmux-2.0.tar.gz
-
-tar -xvzf tmux-*.tar.gz
-cd tmux-*
-LDFLAGS="-L/usr/local/lib -Wl,-rpath=/usr/local/lib" ./configure --prefix=/usr/local
-make && make install
-
+function install_tmux() {
+curl -OL "$TMUX_URL"
+tar -xzf "$TMUX_TAR"
+cd "$TMUX_DIR"
+./configure
+make
+make install
 echo export LD_LIBRARY_PATH=/usr/local/lib >> ~/.bash_profile
-. ~/.bash_profile
+source ~/.bash_profile
+}
 
-## Time to install tmuxinator via gem
-
-## First, lets install RVM so that we can install Ruby and Ruby Gems
-
+function install_ruby_tmuxinator() {
+gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -L get.rvm.io | bash -s stable
 source /etc/profile.d/rvm.sh
 rvm reload
 rvm install 2.1
-yum install rubygems
-
-## Finally, let's install tmuxinator
-
+yum install -y rubygems
 gem install tmuxinator
+}
 
-## Lets sleep for 5 seconds to let things settle
-sleep 5
-
-echo "Phase 1 is complete"
+install_yum_dependencies
+install_libevent
+install_tmux
+install_ruby_tmuxinator
