@@ -32,5 +32,5 @@ Although the script will automatically install the needed dependencies from yum 
 * Add support for other distributions/versions
 * Reduce stdout shown on console
 
-##
+## License
 All code is licensed under the GPL, v3 or later. See LICENSE file for details.
