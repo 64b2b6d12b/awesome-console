@@ -21,7 +21,7 @@ Although the script will automatically install the needed dependencies from yum 
 
 ## What the script does
 
-* Installs ncurses and .development tools. group install if not yet installed
+* Installs ncurses and 'development tools' group install if not yet installed
 * Compiles tmux from source
 * Installs RVM (Ruby Version Manager)
 * Installs Ruby Gems
