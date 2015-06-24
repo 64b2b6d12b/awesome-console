@@ -29,7 +29,7 @@ This script is designed to run on CentOS 6.x. Other distributions/versions have 
 Although the script will automatically install the needed dependencies from yum if not available, the following is required:
 
 * ncurses
-* .development tools. group install
+* 'development tools' group install
 
 ## What the script does
 
