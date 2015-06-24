@@ -10,7 +10,7 @@
 
 `./console.sh`
 
-## Prerequisites
+## Compatability
 This script is designed to run on CentOS 6.x. Other distributions/versions have not yet been tested.
 
 ## Dependencies
