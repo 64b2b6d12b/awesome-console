@@ -26,3 +26,11 @@ Although the script will automatically install the needed dependencies from yum 
 * Installs RVM (Ruby Version Manager)
 * Installs Ruby Gems
 * Installs tmuxinator
+
+## Todo
+
+* Add support for other distributions/versions
+* Reduce stdout shown on console
+
+##
+All code is licensed under the GPL, v3 or later. See LICENSE file for details.
