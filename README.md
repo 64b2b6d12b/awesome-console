@@ -10,6 +10,9 @@
 
 `./console.sh`
 
+## Tmuxinator Usage
+See [Tmuxinator Usage](https://github.com/64b2b6d12b/awesome-console/blob/master/tmuxinator-usage.md)
+
 ## Compatability
 This script is designed to run on CentOS 6.x. Other distributions/versions have not yet been tested.
 
